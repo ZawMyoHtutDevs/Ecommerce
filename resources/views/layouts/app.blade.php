@@ -12,12 +12,12 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/css/app.min.css') }}" rel="stylesheet">
+
+    @yield('style')
+
 </head>
 <body>
     <div id="app">
@@ -79,5 +79,15 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Core Vendors JS -->
+    <script src="{{ asset('backend/js/vendors.min.js') }}"></script>
+
+    <!-- page js -->
+    @yield('script')
+
+    <!-- Core JS -->
+    <script src="{{ asset('backend/js/app.min.js') }}"></script>
+
 </body>
 </html>
