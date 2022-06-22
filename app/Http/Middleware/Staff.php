@@ -18,7 +18,7 @@ class Staff
     {
         // ADM for admin, CUS for Customer, STA is staff
         
-        if(Auth::check() && auth()->user()->utype == 'STA'){
+        if(Auth::check() && auth()->user()->utype === 'ADM' || auth()->user()->utype === 'STA' ){
             return $next($request);
         }
         else {

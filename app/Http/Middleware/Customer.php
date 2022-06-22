@@ -18,7 +18,7 @@ class Customer
     {
         // ADM for admin, CUS for Customer, STA is staff
         
-        if(Auth::check() && auth()->user()->utype == 'CUS'){
+        if(Auth::check() &&  auth()->user()->utype === 'ADM' || auth()->user()->utype === 'STA' || auth()->user()->utype === 'CUS'){
             return $next($request);
         }
         else {

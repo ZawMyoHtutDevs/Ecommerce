@@ -28,13 +28,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Blade::if('admin', function () {
-            return Auth::check() && Auth::user()->utype === 'ADM';
+            return auth()->user()->utype === 'ADM';
         });
         Blade::if('staff', function () {
-            return Auth::check() && Auth::user()->utype === 'STA';
+            return auth()->user()->utype === 'ADM' || auth()->user()->utype === 'STA';
         });
         Blade::if('customer', function () {
-            return Auth::check() && Auth::user()->utype === 'CUS';
+            return auth()->user()->utype === 'ADM' || auth()->user()->utype === 'STA' || auth()->user()->utype === 'CUS';
         });
 
     }
