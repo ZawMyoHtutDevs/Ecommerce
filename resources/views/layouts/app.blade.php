@@ -8,14 +8,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dashboard | Ecommerce</title>
+   
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    @yield('style')
     <!-- Styles -->
     <link href="{{ asset('backend/css/app.min.css') }}" rel="stylesheet">
-
-    @yield('style')
+    <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
+    
 
 </head>
 <body>
@@ -57,11 +58,13 @@
     <!-- Core Vendors JS -->
     <script src="{{ asset('backend/js/vendors.min.js') }}"></script>
 
-    <!-- page js -->
-    @yield('script')
+    
 
     <!-- Core JS -->
     <script src="{{ asset('backend/js/app.min.js') }}"></script>
+
+    <!-- page js -->
+    @yield('script')
 
 </body>
 </html>

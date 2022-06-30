@@ -12,7 +12,7 @@
     <h2 class="header-title">{{$user_data->name}}</h2>
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
-            <a href="{{route('home')}}" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a href="{{route('home')}}" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
             <a class="breadcrumb-item" href="{{route('users')}}">Accounts</a>
             <span class="breadcrumb-item active">{{$user_data->name}}</span>
         </nav>

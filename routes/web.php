@@ -1,7 +1,13 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +26,7 @@ Route::get('/', function () {
 Auth::routes();
 
 // Admin
-Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['admin','auth']], function () {
     // User and Account
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/users/create', [UserController::class, 'show_create_user'])->name('show.create.user');
@@ -33,7 +39,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'admin'], function () {
 
 
 // Staff
-Route::group(['prefix' => 'dashboard', 'middleware' =>  'staff'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' =>  ['staff','auth']], function () {
     
     // Edit User
     Route::get('user/{id}', [UserController::class, 'show'])->name('users.detail');
@@ -46,12 +52,27 @@ Route::group(['prefix' => 'dashboard', 'middleware' =>  'staff'], function () {
     
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
-    Route::post('upload_image',[BlogController::class, 'uploadImage'])->name('upload');
-    
+    Route::post('upload_image',[ProductController::class, 'uploadImage'])->name('upload');
+
+    // Products
+    Route::resource('products', ProductController::class);
+
+    // Category
+    Route::resource('categories', CategoryController::class);
+
+    // Currency
+    Route::resource('currencies', CurrencyController::class);
+
+    // Discount
+    Route::resource('discounts', DiscountController::class);
+
+    // Discount
+    Route::resource('customers', CustomerController::class);
+
 });
 
 // Customer
-Route::group(['prefix' => 'dashboard', 'middleware' => 'customer'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['customer','auth']], function () {
     
 });
 

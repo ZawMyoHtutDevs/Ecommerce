@@ -11,18 +11,8 @@ class UserController extends Controller
 {
     
     public function index(){
-        $users_data = User::select('id','name','email','utype')->get();
+        $users_data = User::select('id','name','email','utype')->where('utype', '!=', 'CUS')->get();
         return view('auth.user', compact('users_data'));
-    }
-
-    // check Admin of not
-    public function is_admin($data)
-    {
-        if($data == 'on'){
-            return 1;
-        }else{
-            return 0;
-        }
     }
 
 

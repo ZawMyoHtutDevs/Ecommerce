@@ -10,7 +10,7 @@
     <h2 class="header-title">Accounts List</h2>
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
-            <a href="{{route('home')}}" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a href="{{route('home')}}" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
             <span class="breadcrumb-item active">Accounts</span>
         </nav>
     </div>

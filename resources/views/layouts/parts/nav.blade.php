@@ -13,93 +13,99 @@
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
-                        <i class="anticon anticon-smile"></i>
+                        <i class="anticon anticon-shopping-cart"></i>
                     </span>
                     <span class="title">Our Products</span>
                     <span class="arrow">
                         <i class="arrow-icon"></i>
                     </span>
                 </a>
-                {{-- <ul class="dropdown-menu">
-                    <li class="{{ Route::is('products.*') ? 'active' : '' }}">
+                <ul class="dropdown-menu">
+                    <li class="{{ Route::is('products.index') ? 'active' : '' }}">
                         <a href="{{ route('products.index')}}">Our Products</a>
                     </li>
-                    <li class="">
+                    <li class="{{ Route::is('products.create') ? 'active' : '' }}">
                         <a href="{{ route('products.create')}}">Create New</a>
                     </li>
 
-                    <li class="{{ Route::is('categories.*') ? 'active' : '' }}">
-                        <a href="{{ route('categories.index')}}">Categories</a>
-                    </li>
-
-                    <li class="{{ Route::is('brands.*') ? 'active' : '' }}">
-                        <a href="{{ route('brands.index')}}">Brands</a>
-                    </li>
                     
-                </ul> --}}
+                </ul>
             </li>
 
-            {{-- Services --}}
-            {{-- <li class="nav-item dropdown">
-                <a href="{{route('services.index')}}">
+            {{-- Categories --}}
+            <li class="nav-item {{ Route::is('categories.*') ? 'active' : '' }}">
+                <a class="" href="{{route('categories.index')}}">
                     <span class="icon-holder">
-                        <i class="anticon anticon-flag"></i>
+                        <i class="anticon anticon-appstore"></i>
                     </span>
-                    <span class="title">Services</span>
+                    <span class="title">Product Category</span>
                 </a>
-            </li> --}}
+            </li>
             
+            {{-- Discount --}}
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
-                        <i class="anticon anticon-smile"></i>
+                        <i class="anticon anticon-crown"></i>
                     </span>
-                    <span class="title">Our Works</span>
+                    <span class="title">Discounts</span>
                     <span class="arrow">
                         <i class="arrow-icon"></i>
                     </span>
                 </a>
-                {{-- <ul class="dropdown-menu">
-                    <li class="{{ Route::is('works.*') ? 'active' : '' }}">
-                        <a href="{{ route('works.index')}}">Our Works</a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Route::is('discounts.index') ? 'active' : '' }}">
+                        <a href="{{ route('discounts.index')}}">Discount List</a>
                     </li>
-                    <li class="">
-                        <a href="{{ route('works.create')}}">Create New</a>
+                    <li class="{{ Route::is('discounts.create') ? 'active' : '' }}">
+                        <a href="{{ route('discounts.create')}}">Create New</a>
                     </li>
+
                     
-                </ul> --}}
+                </ul>
+            </li>
+            
+            
+
+            {{-- Order --}}
+            <li class="nav-item  {{ Route::is('currencies.*') ? 'active' : '' }}">
+                <a class="" href="{{route('currencies.index')}}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-database"></i>
+                    </span>
+                    <span class="title">Orders</span>
+                </a>
             </li>
 
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle " href="javascript:void(0);">
+            {{-- Report --}}
+            <li class="nav-item  {{ Route::is('currencies.*') ? 'active' : '' }}">
+                <a class="" href="{{route('currencies.index')}}">
                     <span class="icon-holder">
-                        <i class="anticon anticon-contacts"></i>
+                        <i class="anticon anticon-area-chart"></i>
                     </span>
-                    <span class="title">Contact Form</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
+                    <span class="title">Report</span>
                 </a>
-                {{-- <ul class="dropdown-menu">
-                    <li class="{{ Route::is('contacts.*') ? 'active' : '' }}">
-                        <a href="{{route('contacts.index')}}">Data List</a>
-                    </li>
-                    <li class="{{ Route::is('contacts_chart') ? 'active' : '' }}">
-                        <a href="{{route('contacts_chart')}}">Data Chart</a>
-                    </li>
-                </ul> --}}
             </li>
 
-            {{-- Apply --}}
-            {{-- <li class="nav-item dropdown">
-                <a href="{{route('applies.index')}}">
+            {{-- Customer --}}
+            <li class="nav-item  {{ Route::is('customers.*') ? 'active' : '' }}">
+                <a class="" href="{{route('customers.index')}}">
                     <span class="icon-holder">
-                        <i class="anticon anticon-profile"></i>
+                        <i class="anticon anticon-user"></i>
                     </span>
-                    <span class="title">Request Form</span>
+                    <span class="title">Customers</span>
                 </a>
-            </li> --}}
+            </li>
 
+            {{-- Currency --}}
+            <li class="nav-item  {{ Route::is('currencies.*') ? 'active' : '' }}">
+                <a class="" href="{{route('currencies.index')}}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-dollar"></i>
+                    </span>
+                    <span class="title">Currency</span>
+                </a>
+            </li>
 
         </ul>
     </div>
