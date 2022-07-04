@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,8 +69,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' =>  ['staff','auth']], funct
     // Discount
     Route::resource('discounts', DiscountController::class);
 
-    // Discount
+    // Customer
     Route::resource('customers', CustomerController::class);
+
+    // Order
+    Route::resource('orders', OrderController::class);
+
+    // Address Update
+    Route::put('/addresses/{id}/edit', [AddressController::class, 'update'])->name('update.address');
+
+    // Address Update
+    Route::get('/reports', [HomeController::class, 'report'])->name('report');
 
 });
 

@@ -3,6 +3,11 @@
 <!-- page css -->
 <link href="{{ asset('backend/vendors/datatables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 
+<style>
+    #data-table_filter input{
+        max-width: 200px !important;
+    }
+</style>
 @endsection
 
 {{-- Breadcrumb Data Here --}}

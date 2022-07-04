@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers_data = User::where('utype', '=', 'CUS')->orderby('updated_at', 'asc')->get();
-        return view('products.customers.index', compact('customers_data'));
+        //
     }
 
     /**
@@ -42,22 +41,21 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Payment $payment)
     {
-        $customer = User::find($id);
-        return view('products.customers.show', compact('customer'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Payment $payment)
     {
         //
     }
@@ -66,10 +64,10 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Payment $payment)
     {
         //
     }
@@ -77,10 +75,10 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Payment $payment)
     {
         //
     }

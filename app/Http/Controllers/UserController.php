@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     
     public function index(){
-        $users_data = User::select('id','name','email','utype')->where('utype', '!=', 'CUS')->get();
+        $users_data = User::select('id','name','email','utype')->get();
         return view('auth.user', compact('users_data'));
     }
 

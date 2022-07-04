@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class AddressController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers_data = User::where('utype', '=', 'CUS')->orderby('updated_at', 'asc')->get();
-        return view('products.customers.index', compact('customers_data'));
+        //
     }
 
     /**
@@ -42,22 +41,21 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Address $address)
     {
-        $customer = User::find($id);
-        return view('products.customers.show', compact('customer'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Address $address)
     {
         //
     }
@@ -66,21 +64,29 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $address = Address::find($id);
+        $address->name = $request->name;
+        $address->address_type = $request->address_type;
+        $address->country = $request->country;
+        $address->city = $request->city;
+        $address->address = $request->address;
+        $address->save();
+
+        return redirect()->back()->with('success', $request->name .'- ၏ အချက်အလက်များကို ပြင်ဆင်ပြီးပါပြီ။');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Address $address)
     {
         //
     }

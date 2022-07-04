@@ -4,6 +4,11 @@
 <!-- page css -->
 <link href="{{ asset('backend/vendors/datatables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 
+<style>
+    #data-table_filter input{
+        max-width: 200px !important;
+    }
+</style>
 @endsection
 
 {{-- Breadcrumb Data Here --}}
@@ -96,7 +101,7 @@
             <div class="card-header mt-3 h3">{{ __('Currencies') }}</div>
             
             <div class="card-body">
-                <table id="data-table" class="table" class="table table-inverse ">
+                <table id="data-table" class="table table-inverse ">
                     <thead>
                         <tr>
                             <th>Flag</th>

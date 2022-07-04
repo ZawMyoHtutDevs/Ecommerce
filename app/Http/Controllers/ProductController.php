@@ -8,6 +8,7 @@ use App\Models\Inventory;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use ImageOptimizer;
 
 class ProductController extends Controller
 {
@@ -42,7 +43,7 @@ class ProductController extends Controller
             $fileName = $fileName.'_'.time().'.'.$extension;
             
             $request->file('upload')->move(public_path('/images/products/other/'), $fileName);
-            
+
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
             $url = asset('/images/products/other/'.$fileName); 
             $msg = 'Image uploaded successfully'; 
@@ -188,6 +189,10 @@ class ProductController extends Controller
         $main_image_name = $request->file('asset');
         
         $main_image_name->move(public_path().'/images/products/', $img = rand(1, 1000).time().'.'.$request->asset->extension());
+
+        app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize(public_path().'/images/products/'.$img, public_path().'/images/products/optimize/'.$img);
+
+        // $main_image_name->move(public_path().'/images/products/', $img = rand(1, 1000).time().'.'.$request->asset->extension());
         
         
         // Delete old main image

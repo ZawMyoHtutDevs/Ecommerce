@@ -9,11 +9,11 @@
 {{-- Breadcrumb Data Here --}}
 @section('breadcrumb')
 <div class="page-header">
-    <h2 class="header-title">Customer List</h2>
+    <h2 class="header-title">Orders List</h2>
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
             <a href="{{route('home')}}" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Dashboard</a>
-            <span class="breadcrumb-item active">Customer</span>
+            <span class="breadcrumb-item active">Order</span>
         </nav>
     </div>
 </div>
@@ -35,35 +35,40 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header mt-3 h3">{{ __('Customers') }}</div>
+            <div class="card-header mt-3 h3">{{ __('Order') }}</div>
             
             <div class="card-body">
                 <table id="data-table" class="table" class="table table-inverse ">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Phone</th>
                             <th>Order</th>
-                            <th>Address Count</th>
-                            <th>Created Date</th>
+                            <th>Customer</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Payment</th>
+                            <th>Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($customers_data as $item)
+                        @foreach($orders_data as $item)
                         <tr>
-                            <td>                                
-                                {{$item->name}}    
-                            </td>
-                            
                             <td>
-                                {{$item->phone}}
+                                {{$item->order_number}}
                             </td>
                             <td>
-                                {{count($item->orders)}}
+                                {{$item->user->name}}
                             </td>
                             <td>
-                                {{count($item->addresses)}}
+                                <span class="badge badge-pill badge-primary">
+                                    {{ $item->status }}
+                                </span>
+                            </td>
+                            <td>
+                                {{$item->total}} {{currency()->code}}
+                            </td>
+                            <td>
+                                {{$item->payment->payment_type}}
                             </td>
                             <td>
                                 <span class="badge badge-default">
@@ -71,13 +76,11 @@
                                 </span>
                             </td>
                             <td>
-                                
-                                {{-- View --}}
-                                <a href="{{route('customers.show', $item->id)}}" class="btn btn-icon btn-hover btn-sm btn-rounded text-success">
+                                <a href="{{route('orders.show', $item->id)}}" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right text-success" >
                                     <i class="anticon anticon-eye"></i>
                                 </a>
-                                
                             </td>
+
                         </tr>
                         @endforeach
                     </tbody>

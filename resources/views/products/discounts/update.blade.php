@@ -21,6 +21,17 @@
 @endsection
 @section('content')
 
+{{-- Success message --}}
+@if (Session::has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    {{ Session::get('success') }}
+</div>
+@endif
+
 {{-- Error message --}}
 @if (Session::has('error'))
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -33,8 +44,8 @@
 @endif
 
 
-<form method="POST" action="{{ route('discounts.store') }}" >
-    @csrf
+<form method="POST" action="{{ route('discounts.update', $discount->id) }}" >
+    @csrf @method('PUT')
     <div class="row">
         {{-- Add Form --}}
         <div class="col-sm-12 col-md-6">
@@ -67,6 +78,8 @@
                                 <p class="text-danger">{{$message}}</p>
                                 @enderror
                                 
+                                {{-- Status --}}
+                                <input type="hidden" class="form-control" name="status"  aria-describedby="status" value="{{$discount->status}}">
                             </div>
                         </div>
                     </div>
@@ -84,137 +97,153 @@
                     
                     <button type="submit" class="btn btn-primary btn-block">Update</button>
                     
-                    @if ($discount->status == 'fit price')
-                    <div class="fit_product" id="fit_product" >
-                        <hr>
-                        <h5>Select Product</h5>
-                        <div class="m-b-15" >
-                            <select class="select2" name="fit_product_id">
-                                @foreach($products_data as $data)
-                                <option value="{{$data->id}}">{{$data->name}}_{{$data->price}} {{currency()->code}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        {{-- discount_price --}}
-                        
-                        <div class="form-group">
-                            <label for="discount_price">Price</label>
+                    @switch($discount->status)
+                        @case('fit price')
+                        <div class="fit_product" id="fit_product" >
+                            <hr>
+                            <h5>Select Product</h5>
+                            <div class="m-b-15" >
+                                <select class="select2" name="fit_product_id">
+                                    @foreach($discount->products as $data)
+                                    <option value="{{$data->id}}">{{$data->name}}_{{$data->price}} {{currency()->code}}</option>
+                                    @endforeach
+                                    @foreach($products_data as $data)
+                                    <option value="{{$data->id}}">{{$data->name}}_{{$data->price}} {{currency()->code}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- discount_price --}}
                             
-                            <div class="input-group mb-3">
-                                <input name="discount_price" type="text" class="form-control @error('discount_price') is-invalid @enderror" value="{{ old('discount_price') }}" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">{{currency()->code}}</span>
+                            <div class="form-group">
+                                <label for="discount_price">Price</label>
+                                
+                                <div class="input-group mb-3">
+                                    <input name="discount_price" type="text" class="form-control @error('discount_price') is-invalid @enderror" value="{{ $discount->discount_price ?? old('discount_price') }}" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2">{{currency()->code}}</span>
+                                    </div>
                                 </div>
+                                
+                                @error('discount_price')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
+                                
+                            </div>
+                        </div>
+                            @break
+                        @case('percentage price')
+                        <div class="percent_product" id="percent_product">
+                            <hr>
+                            <h5>Select Products</h5>
+                            <div class="m-b-15" >
+                                <select class="select2" name="percentage_product_id[]"  multiple="multiple">
+                                    @foreach($discount->products as $data)
+                                    <option value="{{$data->id}}" selected>{{$data->name}}</option>
+                                    @endforeach
+                                    @foreach($products_data as $data)
+                                    <option value="{{$data->id}}" >{{$data->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             
-                            @error('discount_price')
-                            <p class="text-danger">{{$message}}</p>
-                            @enderror
-                            
+                            {{-- Discount Percent --}}
+                            <div class="form-group">
+                                <label for="discount_percent">Percent</label>
+                                <input type="number" min="0" max="100"
+                                class="form-control @error('discount_percent') is-invalid @enderror" name="discount_percent" id="discount_percent" aria-describedby="helpId" value="{{ $discount->discount_percent ?? old('discount_percent') }}">
+                                
+                                @error('discount_price')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
+                                
+                            </div>
                         </div>
-                    </div>
-                    @endif
-                    
-                    @if ($discount->status == 'percentage price')
-                    <div class="percent_product" id="percent_product">
-                        <hr>
-                        <h5>Select Products</h5>
-                        <div class="m-b-15" >
-                            <select class="select2" name="percentage_product_id[]"  multiple="multiple">
-                                @foreach($products_data as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        
-                        {{-- Discount Percent --}}
-                        <div class="form-group">
-                            <label for="discount_percent">Percent</label>
-                            <input type="number" min="0" max="100"
-                            class="form-control @error('discount_percent') is-invalid @enderror" name="discount_percent" id="discount_percent" aria-describedby="helpId" value="{{ old('discount_percent') }}">
-                            
-                            @error('discount_price')
-                            <p class="text-danger">{{$message}}</p>
-                            @enderror
-                            
-                        </div>
-                    </div>
-                    @endif
-                    
-                    @if ($discount->status == 'free gif')
-                    <div class="gif_product" id="gif_product">
-                        <hr>
-                        <h5>Select Product</h5>
-                        <div class="m-b-15" >
-                            <select class="select2" name="gif_single_product_id">
-                                @foreach($discount->products as $data)
-                                <option value="{{$data->id}}" selected>{{$data->name}}</option>
-                                @endforeach
-                                @foreach($products_data as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('gif_single_product_id')
-                            <p class="text-danger">{{$message}}</p>
-                            @enderror
-                        </div>
-                        <hr>
-                        <h5>Gif Products</h5>
-                        <div class="m-b-15" >
-                            <select class="select2" name="gif_products_id[]"  multiple="multiple">
-
-                                {{-- change string to array --}}
-                                <?php
-                                    $gif_product = explode(" - ", $discount->gif_products_id);
-                                ?>
-
-                                {{-- Product Data --}}
-                                @foreach($products_data as $data)
-                                <option value="{{$data->id}}"
-                                    {{-- Check selected Product --}}
-                                    @foreach($gif_product as $key => $value)
-                                        @if ($value == $data->id)
-                                            selected
-                                        @endif
+                            @break
+                        @case('free gif')
+                        <div class="gif_product" id="gif_product">
+                            <hr>
+                            <h5>Select Product</h5>
+                            <div class="m-b-15" >
+                                <select class="select2" name="gif_single_product_id">
+                                    @foreach($discount->products as $data)
+                                    <option value="{{$data->id}}" selected>{{$data->name}}</option>
                                     @endforeach
-                                    >{{$data->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('gif_products_id')
-                            <p class="text-danger">{{$message}}</p>
-                            @enderror
+                                    @foreach($products_data as $data)
+                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('gif_single_product_id')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
+                            </div>
+                            <hr>
+                            <h5>Gif Products</h5>
+                            <div class="m-b-15" >
+                                <select class="select2" name="gif_products_id[]"  multiple="multiple">
+    
+                                    {{-- change string to array --}}
+                                    <?php
+                                    if(!empty($discount->gif_products_id)){
+                                        $gif_product = explode(" - ", $discount->gif_products_id);
+                                    }
+                                    ?>
+    
+                                    {{-- Product Data --}}
+                                    @foreach($products_data as $data)
+                                    <option value="{{$data->id}}"
+                                        {{-- Check selected Product --}}
+                                        @foreach($gif_product as $key => $value)
+                                            @if ($value == $data->id)
+                                                selected
+                                            @endif
+                                        @endforeach
+                                        >{{$data->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('gif_products_id')
+                                <p class="text-danger">{{$message}}</p>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
-                    @endif
-                    
-                    @if ($discount->status == 'free shipping')
-                    <div class="free_ship_product" id="free_ship_product" style="display: none;">
-                        <hr>
-                        <h5>Free Shipping Products</h5>
-                        <div class="m-b-15" >
-                            <select class="select2" name="free_ship_products_id[]"  multiple="multiple">
-                                @foreach($products_data as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                @endforeach
-                            </select>
+                            @break
+                        @case('free shipping')
+                        <div class="free_ship_product" id="free_ship_product" style="display: none;">
+                            <hr>
+                            <h5>Free Shipping Products</h5>
+                            <div class="m-b-15" >
+                                <select class="select2" name="free_ship_products_id[]"  multiple="multiple">
+                                    @foreach($discount->products as $data)
+                                    <option value="{{$data->id}}" selected>{{$data->name}}</option>
+                                    @endforeach
+                                    @foreach($products_data as $data)
+                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div> 
+                            @break
+                        @case('buy one get one')
+                        <div class="bogo" id="bogo" style="display: none;">
+                            <hr>
+                            <h5>Buy One Get One</h5>
+                            <div class="m-b-15" >
+                                <select class="select2" name="get_one_product_id">
+                                    @foreach($discount->products as $data)
+                                    <option value="{{$data->id}}" selected>{{$data->name}}</option>
+                                    @endforeach
+                                    @foreach($products_data as $data)
+                                    <option value="{{$data->id}}">{{$data->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
                         </div>
-                    </div>
-                    @endif
-
-                    @if ($discount->status == 'buy one get one')
-                    <div class="bogo" id="bogo" style="display: none;">
-                        <hr>
-                        <h5>Buy One Get One</h5>
-                        <div class="m-b-15" >
-                            <select class="select2" name="get_one_product_id">
-                                @foreach($products_data as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                                @endforeach
-                            </select>
+                            @break
+                        @default
+                        <div class="alert alert-danger" role="alert">
+                            <strong>NO Discount Type</strong>
                         </div>
-                        
-                    </div>
-                    @endif
+                    @endswitch
                     
                 </div>
             </div>

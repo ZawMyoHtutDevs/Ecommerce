@@ -63,11 +63,11 @@
                             <td style="max-width: 300px;">                                
                                 <div class="d-flex align-items-center">
                                     @foreach ($item->products as $data)
-                                    <h3>
+                                    <h4 class="pl-1">
                                     <span class="badge badge-default">
                                         {{$data->name}}
                                     </span>
-                                    </h3>
+                                    </h4>
                                     @endforeach
                                 </div>
                             </td>

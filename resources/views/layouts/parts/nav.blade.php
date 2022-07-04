@@ -68,8 +68,8 @@
             
 
             {{-- Order --}}
-            <li class="nav-item  {{ Route::is('currencies.*') ? 'active' : '' }}">
-                <a class="" href="{{route('currencies.index')}}">
+            <li class="nav-item  {{ Route::is('orders.*') ? 'active' : '' }}">
+                <a class="" href="{{route('orders.index')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-database"></i>
                     </span>
@@ -78,8 +78,8 @@
             </li>
 
             {{-- Report --}}
-            <li class="nav-item  {{ Route::is('currencies.*') ? 'active' : '' }}">
-                <a class="" href="{{route('currencies.index')}}">
+            <li class="nav-item  {{ Route::is('report') ? 'active' : '' }}">
+                <a class="" href="{{route('report')}}">
                     <span class="icon-holder">
                         <i class="anticon anticon-area-chart"></i>
                     </span>
@@ -106,6 +106,18 @@
                     <span class="title">Currency</span>
                 </a>
             </li>
+
+            {{-- Account --}}
+            @admin
+            <li class="nav-item  {{ Route::is('users') ? 'active' : '' }}">
+                <a class="" href="{{route('users')}}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-team"></i>
+                    </span>
+                    <span class="title">All Accounts</span>
+                </a>
+            </li>
+            @endadmin
 
         </ul>
     </div>

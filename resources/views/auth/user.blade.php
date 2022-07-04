@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @section('style')
+<!-- page css -->
+<link href="{{ asset('backend/vendors/datatables/dataTables.bootstrap.min.css') }}" rel="stylesheet">
 
-
+<style>
+    #data-table_filter input{
+        max-width: 200px !important;
+    }
+</style>
 @endsection
 
 {{-- Breadcrumb Data Here --}}
@@ -30,7 +36,7 @@
 @endif
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="card">
             <div class="card-header mt-3 h3">{{ __('Add New Account') }}</div>
             
@@ -130,12 +136,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header mt-3 h3">{{ __('Accounts') }}</div>
             
             <div class="card-body">
-                <table class="table table-inverse ">
+                <table id="data-table" class="table" class="table table-inverse ">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -163,7 +169,10 @@
                                 
                             </td>
                             <td>
-                                
+                                {{-- View --}}
+                                <a href="{{route('customers.show', $data->id)}}" class="btn btn-icon btn-hover btn-sm btn-rounded text-success">
+                                    <i class="anticon anticon-eye"></i>
+                                </a>
                                 {{-- Edit and View --}}
                                 <a href="{{route('users.detail', $data->id)}}" class="btn btn-icon btn-hover btn-sm btn-rounded pull-right text-primary">
                                     <i class="anticon anticon-edit"></i>
@@ -193,5 +202,15 @@
 @endsection
 
 @section('script')
+<!-- page js -->
+<script src="{{ asset('backend/vendors/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('backend/vendors/datatables/dataTables.bootstrap.min.js') }}"></script>
 
+<script>
+    
+    
+    $('#data-table').DataTable();
+    
+    
+</script>
 @endsection
