@@ -183,16 +183,18 @@
     
                                     {{-- change string to array --}}
                                     <?php
-                                    if(!empty($discount->gif_products_id)){
-                                        $gif_product = explode(" - ", $discount->gif_products_id);
-                                    }
+                                        if (count(explode(" - ", $discount->gif_products_id))) {
+                                            $gif_product = [$discount->gif_products_id];
+                                        }else{
+                                            $gif_product = explode("", $discount->gif_products_id);
+                                        }
                                     ?>
     
                                     {{-- Product Data --}}
                                     @foreach($products_data as $data)
                                     <option value="{{$data->id}}"
                                         {{-- Check selected Product --}}
-                                        @foreach($gif_product as $key => $value)
+                                        @foreach($gif_product as $value)
                                             @if ($value == $data->id)
                                                 selected
                                             @endif

@@ -249,7 +249,13 @@
                         
                         <select name="category_id" id="inputState" class="form-control">
                             
+                            @if (!empty($product->category))
                             <option value="{{$product->category->id}}" selected>{{$product->category->name}}</option>
+                            @else
+                            <option value="" selected>select category</option>
+                            @endif
+
+                            
                             @if($categories_data)
                             @foreach($categories_data as $category)
                             <?php $dash=''; ?>

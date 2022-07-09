@@ -51,15 +51,19 @@ class CategoryController extends Controller
             'permalink.unique' => 'တူညီသော Permalink ရှိနေ၍ အသစ်တစ်ခုထည့်ပြီး ထပ်မံကြိုးစားကြည့်ပါ။',
         ]);
 
-        // insert Main Image to local file
-        $asset_file = $request->file('asset');
+        // edit Main image
+        if($request->asset != ''){
+            // insert Main Image to local file
+            $asset_file = $request->file('asset');
+                    
+            $asset_file->move(public_path().'/images/products/categories/', $asset_name = rand(1, 1000).time().'.'.$request->asset->extension());
+        }
         
-        $asset_file->move(public_path().'/images/products/categories/', $asset_name = rand(1, 1000).time().'.'.$request->asset->extension());
         
     
         $categories = new Category();
         $categories->name = $request->name;
-        $categories->asset = $asset_name;
+        $categories->asset = $asset_name ?? '';
         $categories->parent_id = $request->parent_id;
         $categories->permalink = $request->permalink ? str_replace(' ', '-', strtolower($request->permalink)) : str_replace(' ', '-', strtolower($request->name));
         $categories->description = $request->description;
@@ -132,7 +136,7 @@ class CategoryController extends Controller
 
 
         $category->name = $request->name;
-        $category->asset = $asset_name;
+        $category->asset = $asset_name ?? '';
         $category->permalink = str_replace(' ', '-', strtolower($request->permalink)) ?? str_replace(' ', '-', strtolower($request->name));
         $category->description = $request->description;
         $category->order = $request->order ?? $this->order();

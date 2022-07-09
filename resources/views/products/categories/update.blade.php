@@ -36,7 +36,7 @@
             
             <div class="card-body">
                 <form method="POST" action="{{ route('categories.update', $category_data->id) }}" enctype="multipart/form-data">
-                    @csrf
+                    @csrf @method('PUT')
                     
                     <div class="form-group">
                         <label for="">Name</label>

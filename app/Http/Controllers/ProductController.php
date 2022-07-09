@@ -151,7 +151,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories_data = Category::where('parent_id', null)->orderby('order', 'asc')->get();
+        $categories_data = Category::where('parent_id', NULL)->orderby('order', 'asc')->get();
         return view('products.update', compact('product', 'categories_data'));
     }
 

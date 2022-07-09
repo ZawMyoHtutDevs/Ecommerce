@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CurrencyController;
@@ -9,7 +8,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +20,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Frontend
+Route::group([], __DIR__.'./partials/frontend.php');
 
 Auth::routes();
 
@@ -83,9 +80,5 @@ Route::group(['prefix' => 'dashboard', 'middleware' =>  ['staff','auth']], funct
 
 });
 
-// Customer
-Route::group(['prefix' => 'dashboard', 'middleware' => ['customer','auth']], function () {
-    
-});
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -63,7 +63,7 @@
                 <div class="form-group">
                     <label for="">Product Description</label>
                     <textarea name="description" class="form-control" id="description"
-                    style="width: 100%;height:10em;">{!! old('name') !!}</textarea>
+                    style="width: 100%;height:10em;">{!! old('description') !!}</textarea>
                     
                 </div>
             </div>
@@ -142,7 +142,7 @@
                 
                 <div class="form-group">
                     <textarea name="detail" class="form-control" id="detail"
-                    style="width: 100%;height:10em;">{!! old('name') !!}</textarea>
+                    style="width: 100%;height:10em;">{!! old('detail') !!}</textarea>
                     
                 </div>
                 
